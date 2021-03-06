@@ -23,7 +23,9 @@ banner =
     -}
     div [ class "banner" ]
         [ div [ class "container" ]
-            [ text "👉 TODO: Put the <h1> here instead of this text, then add the <p> right after the <h1>" ]
+            [ h1 [class "logo-font"] [ text "conduit" ]
+            , p  [] [text "A place to share your knowledge." ]
+            ]
         ]
 
 
@@ -33,7 +35,7 @@ feed =
 
 main =
     div [ class "home-page" ]
-        [ div [] [ text "👉 TODO: Replace this <div> with the banner" ]
+        [ div [] [ banner ]
         , div [ class "container page" ]
             [ div [ class "row" ]
                 [ div [ class "col-md-9" ] [ feed ]
