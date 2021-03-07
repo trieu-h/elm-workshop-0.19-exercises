@@ -10,7 +10,7 @@ import Route exposing (Route)
 import Session exposing (Session)
 import Username exposing (Username)
 import Viewer exposing (Viewer)
-import Viewer.Cred as Cred exposing (Cred)
+import Viewer.Cred as Cred exposing (Cred, getUsername)
 
 
 {-| Determines which navbar link (if any) will be rendered as active.
@@ -71,8 +71,7 @@ viewMenu page maybeViewer =
                 cred =
                     Viewer.cred viewer
 
-                { username } =
-                    cred
+                username = Cred.getUsername cred
 
                 avatar =
                     Profile.avatar (Viewer.profile viewer)

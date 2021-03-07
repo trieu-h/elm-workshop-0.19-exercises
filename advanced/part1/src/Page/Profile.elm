@@ -24,7 +24,7 @@ import Task exposing (Task)
 import Time
 import Username exposing (Username)
 import Viewer exposing (Viewer)
-import Viewer.Cred as Cred exposing (Cred)
+import Viewer.Cred as Cred exposing (Cred, getUsername)
 
 
 
@@ -257,7 +257,7 @@ titleForMe : Maybe Cred -> Username -> String
 titleForMe maybeCred username =
     case maybeCred of
         Just cred ->
-            if username == cred.username then
+            if username == (Cred.getUsername cred) then
                 myProfileTitle
 
             else

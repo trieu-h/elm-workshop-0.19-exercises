@@ -60,7 +60,7 @@ import Profile exposing (Profile)
 import Route exposing (Route)
 import Username exposing (Username)
 import Viewer exposing (Viewer)
-import Viewer.Cred as Cred exposing (Cred)
+import Viewer.Cred as Cred exposing (Cred, getUsername)
 
 
 {-| An author - either the current user, another user we're following, or
@@ -95,7 +95,7 @@ username : Author -> Username
 username author =
     case author of
         IsViewer cred _ ->
-            cred.username
+            Cred.getUsername cred
 
         IsFollowing (FollowedAuthor val _) ->
             val
@@ -220,7 +220,7 @@ decodeFromPair maybeCred ( prof, uname ) =
             Decode.succeed (IsNotFollowing (UnfollowedAuthor uname prof))
 
         Just cred ->
-            if uname == cred.username then
+            if uname == (Cred.getUsername cred)then
                 Decode.succeed (IsViewer cred prof)
 
             else

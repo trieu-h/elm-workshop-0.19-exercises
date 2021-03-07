@@ -10,7 +10,7 @@ import Json.Decode.Pipeline exposing (custom, required)
 import Json.Encode as Encode exposing (Value)
 import Profile exposing (Profile)
 import Username exposing (Username)
-import Viewer.Cred as Cred exposing (Cred)
+import Viewer.Cred as Cred exposing (Cred, getUsername)
 
 
 
@@ -62,7 +62,7 @@ encode : Viewer -> Value
 encode (Viewer info) =
     Encode.object
         [ ( "email", Email.encode info.email )
-        , ( "username", Username.encode info.cred.username )
+        , ( "username", Username.encode (Cred.getUsername info.cred))
         , ( "image", Avatar.encode (Profile.avatar info.profile) )
         , ( "token", Cred.encodeToken info.cred )
         , ( "bio"
