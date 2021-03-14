@@ -159,9 +159,7 @@ slug (Article internals _) =
 
 
 body : Article Full -> Body
-body _ =
-    "👉 TODO make this return the article's body"
-
+body (Article _ (Full abody)) = abody
 
 
 -- TRANSFORM
@@ -181,9 +179,7 @@ mapAuthor transform (Article info extras) =
 
 
 fromPreview : Body -> Article Preview -> Article Full
-fromPreview _ _ =
-    "👉 TODO convert from an Article Preview to an Article Full"
-
+fromPreview abody (Article internals _) = Article internals (Full abody)
 
 
 -- SERIALIZATION
@@ -200,8 +196,7 @@ fullDecoder : Maybe Cred -> Decoder (Article Full)
 fullDecoder maybeCred =
     Decode.succeed Article
         |> custom (internalsDecoder maybeCred)
-        |> required "body" "👉 TODO use `Body.decoder` (which is a `Decoder Body`) to decode the body into this Article Full"
-
+        |> required "body" (Decode.map Full Body.decoder)
 
 internalsDecoder : Maybe Cred -> Decoder Internals
 internalsDecoder maybeCred =
